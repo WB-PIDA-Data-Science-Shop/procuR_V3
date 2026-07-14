@@ -28,7 +28,7 @@ identifiers appear anywhere in it.
 
 ## Loading — fully automatic
 
-Click **"Load bundled demo dataset (Demoland)"** on the Setup tab (or upload
+Click **"Run Demo"** on the Setup tab (or upload
 `demo_procurement_data.csv` manually — same result). Country (`DL`) and
 currency (`DLK`) are detected from the data, and every threshold pre-fills
 itself: procurement-value thresholds **Works 270,000 / Supplies & Services
