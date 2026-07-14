@@ -1,9 +1,112 @@
-// Site-title: the default theme sizes assume a short name; ours wraps.
+// ─────────────────────────────────────────────────────────────────────────
+// procuR look & feel — matches the homepage (docs/index.html)
+// Palette: primary #0066cc · dark #003d7a · accent #00a3e0
+// ─────────────────────────────────────────────────────────────────────────
+$procur-primary: #0066cc;
+$procur-dark:    #003d7a;
+$procur-accent:  #00a3e0;
+$procur-border:  #e5e7eb;
+
+// Typography ---------------------------------------------------------------
+body {
+  font-family: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+}
+code, pre, kbd, .highlight, .search-input {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+}
+
+// Sidebar ------------------------------------------------------------------
+.side-bar {
+  background: linear-gradient(180deg, #f8fafc 0%, #e8f2fc 100%);
+  border-right: 1px solid $procur-border;
+}
+.site-header {
+  background: linear-gradient(135deg, $procur-dark 0%, $procur-primary 100%);
+  min-height: 0; height: auto;
+}
+// Long title: wrap onto two lines, white on the gradient
 .site-title {
   font-size: 1.02rem !important;
-  line-height: 1.25;
+  line-height: 1.3;
   white-space: normal;
-  padding-top: .6rem;
-  padding-bottom: .6rem;
+  padding: 0.85rem 1rem;
+  color: #ffffff !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
-.site-header { min-height: 0; height: auto; }
+.site-title:hover { background: rgba(255, 255, 255, 0.10); }
+
+.nav-list .nav-list-item .nav-list-link {
+  color: #4a4a4a;
+  transition: all 0.2s ease;
+}
+.nav-list .nav-list-item .nav-list-link:hover {
+  color: $procur-primary;
+  background: rgba(0, 102, 204, 0.06);
+}
+.nav-list .nav-list-item .nav-list-link.active {
+  color: $procur-primary;
+  font-weight: 600;
+  background: rgba(0, 102, 204, 0.08);
+  box-shadow: inset 3px 0 0 $procur-primary;
+}
+
+// Content ------------------------------------------------------------------
+.main-content {
+  h1 { color: $procur-dark; font-weight: 700; letter-spacing: -0.02em; }
+  h2 {
+    color: $procur-dark; font-weight: 700;
+    position: relative; padding-left: 0.95rem; border-bottom: none;
+  }
+  h2::before {
+    content: ''; position: absolute; left: 0; top: 0.18em; bottom: 0.12em;
+    width: 4px; border-radius: 2px;
+    background: linear-gradient(135deg, $procur-primary, $procur-accent);
+  }
+  h3, h4 { color: $procur-primary; font-weight: 600; }
+  a:not(.btn) { color: $procur-primary; }
+  a:not(.btn):hover { color: $procur-accent; }
+  code {
+    background: #f8fafc; color: $procur-primary;
+    border: 1px solid $procur-border; border-radius: 4px;
+    padding: 0.15em 0.4em; font-size: 0.88em;
+  }
+  pre.highlight, .highlight pre {
+    border: 1px solid $procur-border; border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.06);
+  }
+}
+
+// Tables (the data dictionary especially) -----------------------------------
+.table-wrapper {
+  border-radius: 8px; border: 1px solid $procur-border;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.08);
+}
+.main-content table th {
+  background: $procur-dark; color: #ffffff;
+  font-weight: 600; border-bottom: 0;
+}
+.main-content table tbody tr:nth-child(even) td { background: #f8fafc; }
+.main-content table td { border-color: $procur-border; }
+
+// Buttons ------------------------------------------------------------------
+.btn-primary {
+  background: linear-gradient(135deg, $procur-primary, $procur-accent) !important;
+  background-image: linear-gradient(135deg, $procur-primary, $procur-accent) !important;
+  color: #ffffff !important; border: 0;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+  transition: all 0.25s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.28);
+}
+
+// Aux links (top bar: live app / GitHub) ------------------------------------
+.aux-nav .site-button { color: $procur-primary; font-weight: 600; }
+.aux-nav .site-button:hover { color: $procur-accent; background: none; }
+
+// Search ---------------------------------------------------------------------
+.search-input:focus + .search-label .search-icon { color: $procur-primary; }
+.search-result-highlight { color: $procur-primary; }
