@@ -1,0 +1,12 @@
+title: Procurement Analytics Dashboard
+description: An R Shiny toolkit for red-flag analysis of public procurement data
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+color_scheme: light
+heading_anchors: true
+# After creating your repository, replace <USER>/<REPO> below:
+aux_links:
+  "View on GitHub":
+    - "https://github.com/vvpolt/procuR_V3"
+footer_content: "Documentation for the Procurement Analytics Dashboard."

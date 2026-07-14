@@ -1,0 +1,257 @@
+/* PROCUREMENT ANALYTICS — the app's entire design system.
+   Loaded by ui.R (inlined into the page at startup via includeCSS).
+   Edit THIS file to change the app's look — no R code involved.
+   Base text size: body/.content-wrapper below (the @media block holds
+   the compact-screen sizes). Chart text sizes live in R: see the
+   post_process_plotly() defaults in global.R. */
+
+/* ═══════════════════════════════════════════════════════════
+   PROCUREMENT ANALYTICS — DESIGN SYSTEM
+   ═══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+:root {
+  --navy:#0F1F3D; --navy-mid:#1A3160; --navy-light:#2A4A8A;
+  --teal:#00897B; --teal-light:#E0F2F1;
+  --amber:#D97706; --amber-light:#FFFBEB;
+  --rose:#DC2626; --rose-light:#FEF2F2;
+  --slate-50:#F8FAFC; --slate-100:#F1F5F9; --slate-200:#E2E8F0;
+  --slate-400:#94A3B8; --slate-600:#475569; --slate-800:#1E293B;
+  --white:#FFFFFF;
+  --font-main:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+  --radius:6px;
+  --shadow-sm:0 1px 3px rgba(15,31,61,.08),0 1px 2px rgba(15,31,61,.04);
+  --shadow-md:0 4px 12px rgba(15,31,61,.10),0 2px 4px rgba(15,31,61,.06);
+}
+body,.content-wrapper,.right-side{font-family:var(--font-main)!important;font-size:15px;color:var(--slate-800);background-color:var(--slate-100)!important;}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-main);font-weight:600;color:var(--navy);}
+.tab-content h2{font-size:22px;font-weight:700;color:var(--navy);padding-bottom:10px;border-bottom:3px solid var(--slate-200);margin-bottom:20px;letter-spacing:-0.3px;}
+/* Sidebar */
+.main-sidebar,.left-side{background:var(--navy)!important;font-family:var(--font-main)!important;}
+.sidebar-menu>li>a{font-family:var(--font-main)!important;font-size:14px!important;font-weight:500!important;color:rgba(255,255,255,0.75)!important;padding:9px 15px 9px 20px!important;border-left:3px solid transparent!important;transition:all .15s ease!important;}
+.sidebar-menu>li>a:hover,.sidebar-menu>li.active>a{color:#fff!important;background:rgba(255,255,255,0.08)!important;border-left-color:var(--teal)!important;}
+.sidebar-menu>li>a .fa,.sidebar-menu>li>a .fas,.sidebar-menu>li>a .far{width:18px;margin-right:8px;opacity:.8;}
+.section-header{background:transparent!important;color:rgba(255,255,255,0.40)!important;font-family:var(--font-main)!important;font-size:10px!important;font-weight:700!important;letter-spacing:1.5px!important;text-transform:uppercase!important;padding:14px 20px 5px!important;margin-top:4px!important;border-top:1px solid rgba(255,255,255,0.07)!important;}
+.section-header:first-child{border-top:none!important;}
+.export-sep-li{border-top:2px solid rgba(0,137,123,0.5)!important;margin:8px 12px!important;padding:0!important;height:0!important;}
+.main-header .navbar,.main-header .logo{background-color:var(--navy-mid)!important;border-bottom:none!important;}
+.main-header .logo{width:260px!important;display:flex!important;align-items:center!important;padding:0 16px!important;}
+.main-header .navbar{margin-left:260px!important;}
+/* ── Sidebar collapse (hamburger toggle) ── */
+body.sidebar-collapse .main-header .navbar{margin-left:0!important;}
+body.sidebar-collapse .content-wrapper,
+body.sidebar-collapse .right-side,
+body.sidebar-collapse .main-footer{margin-left:0!important;}
+body.sidebar-collapse .main-sidebar{
+  -webkit-transform:translate(-260px,0);
+  transform:translate(-260px,0);
+  width:260px!important;
+}
+body.sidebar-collapse .main-sidebar:hover{
+  -webkit-transform:translate(0,0);
+  transform:translate(0,0);
+}
+/* smooth transition */
+.main-sidebar,.content-wrapper,.right-side,.main-footer,.main-header .navbar{
+  transition:margin-left .25s ease, transform .25s ease, width .25s ease;
+}
+.sidebar-toggle{height:50px!important;padding:15px 18px!important;position:absolute!important;left:0!important;top:0!important;z-index:1050!important;}
+.main-header .logo{padding-left:50px!important;}
+/* ── App title in header ── */
+.app-logo{display:flex;align-items:baseline;gap:5px;line-height:1;}
+.app-logo-name{font-family:var(--font-main)!important;font-weight:800!important;font-size:20px!important;letter-spacing:-0.5px!important;color:#ffffff!important;}
+.app-logo-sub{font-family:var(--font-main)!important;font-weight:300!important;font-size:11px!important;color:rgba(255,255,255,0.60)!important;text-transform:uppercase!important;letter-spacing:1.5px!important;}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE SCALING — three breakpoints
+   • < 1440px  = laptop / small screen  → tighter
+   • 1440–1920 = standard monitor       → base sizes (as coded)
+   • > 1920px  = large / hi-res monitor → scale up
+   ════════════════════════════════════════════════════ */
+
+/* ── Laptop (< 1440 px) ───────────────────────────── */
+@media (max-width: 1440px) {
+  body,.content-wrapper,.right-side{font-size:13.5px!important;}
+  .sidebar-menu>li>a{font-size:13px!important;padding:7px 12px 7px 16px!important;}
+  .section-header{font-size:9px!important;}
+  .box-header{font-size:13.5px!important;padding:8px 12px!important;}
+  .box-body{padding:10px!important;}
+  .question-header{font-size:14.5px!important;padding:9px 12px!important;}
+  .description-box{font-size:13.5px!important;padding:9px 12px!important;}
+  .control-label{font-size:11.5px!important;}
+  .selectize-input,.form-control{font-size:12px!important;}
+  .btn{font-size:12px!important;}
+  /* Value boxes */
+  .small-box .inner h3{font-size:20px!important;}
+  .small-box .inner p{font-size:11px!important;}
+  .small-box{min-height:60px!important;}
+  .small-box .inner{padding:10px 14px!important;}
+  /* Header logo */
+  .app-logo-name{font-size:17px!important;}
+  .app-logo-sub{font-size:10px!important;}
+  /* Tighten dashboard body margin */
+  .content-wrapper{padding:8px!important;}
+  /* Missing values plot fonts on small screens — plotly inherits global font */
+  .js-plotly-plot .ytick text,.js-plotly-plot .xtick text{font-size:10px!important;}
+  .tab-content h2{font-size:18px!important;}
+  .export-card{padding:16px 14px!important;}
+}
+
+/* ── Large monitor (> 1920 px) ────────────────────── */
+@media (min-width: 1921px) {
+  body,.content-wrapper,.right-side{font-size:15px!important;}
+  .sidebar-menu>li>a{font-size:14px!important;padding:10px 18px 10px 22px!important;}
+  .section-header{font-size:11px!important;}
+  .box-header{font-size:14.5px!important;padding:12px 16px!important;}
+  .box-body{padding:18px!important;}
+  .question-header{font-size:17px!important;padding:14px 18px!important;}
+  .description-box{font-size:14.5px!important;padding:14px 18px!important;}
+  .control-label{font-size:13.5px!important;}
+  .selectize-input,.form-control{font-size:14px!important;}
+  .btn{font-size:14px!important;}
+  /* Value boxes */
+  .small-box .inner h3{font-size:32px!important;}
+  .small-box .inner p{font-size:15px!important;}
+  .small-box{min-height:96px!important;}
+  .small-box .inner{padding:16px 22px!important;}
+  /* Header logo */
+  .app-logo-name{font-size:24px!important;}
+  .app-logo-sub{font-size:13px!important;}
+  /* More breathing room */
+  .content-wrapper{padding:16px!important;}
+  /* Bigger plotly tick labels on large monitors */
+  .js-plotly-plot .ytick text,.js-plotly-plot .xtick text{font-size:13px!important;}
+  .tab-content h2{font-size:26px!important;}
+  .export-card{padding:28px 24px!important;}
+  /* Sidebar wider feels better on big screens */
+  .main-header .logo{width:280px!important;}
+  .main-header .navbar{margin-left:280px!important;}
+}
+/* Boxes */
+.box{border-radius:var(--radius)!important;box-shadow:var(--shadow-sm)!important;border:1px solid var(--slate-200)!important;border-top:none!important;margin-bottom:18px!important;background:var(--white)!important;}
+.box-header{font-family:var(--font-main)!important;font-weight:600!important;font-size:13px!important;padding:10px 14px!important;border-radius:var(--radius) var(--radius) 0 0!important;border-bottom:1px solid var(--slate-200)!important;}
+.box-body{padding:14px!important;}
+.box.box-solid.box-primary>.box-header{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important;}
+.box.box-solid.box-info>.box-header{background:#0369A1!important;color:#fff!important;border-color:#0369A1!important;}
+.box.box-solid.box-warning>.box-header{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;}
+.box.box-solid.box-danger>.box-header{background:var(--rose)!important;color:#fff!important;border-color:var(--rose)!important;}
+.box.box-solid.box-success>.box-header{background:var(--teal)!important;color:#fff!important;border-color:var(--teal)!important;}
+.box.box-primary{border-left:3px solid var(--navy)!important;}
+.box.box-info{border-left:3px solid #0369A1!important;}
+.box.box-warning{border-left:3px solid var(--amber)!important;}
+.box.box-danger{border-left:3px solid var(--rose)!important;}
+.box.box-success{border-left:3px solid var(--teal)!important;}
+/* Content components */
+.question-header{font-family:var(--font-main)!important;font-size:15px!important;font-weight:600!important;color:var(--navy)!important;background:var(--white)!important;border-left:4px solid var(--teal)!important;padding:12px 16px!important;margin:16px 0 10px!important;border-radius:0 var(--radius) var(--radius) 0!important;box-shadow:var(--shadow-sm)!important;}
+.description-box{background:var(--slate-50)!important;border-left:3px solid var(--slate-200)!important;padding:12px 15px!important;margin:10px 0 14px!important;border-radius:0 var(--radius) var(--radius) 0!important;font-size:13px!important;line-height:1.65!important;color:var(--slate-600)!important;}
+.description-box strong,.description-box b{color:var(--navy)!important;}
+.description-box p{margin:4px 0!important;}
+.info-box-custom{background:#FFFBEB!important;border-left:3px solid var(--amber)!important;padding:12px 15px!important;margin:10px 0!important;border-radius:0 var(--radius) var(--radius) 0!important;font-size:13px!important;line-height:1.65!important;}
+/* Regression run box */
+.reg-run-box{display:flex!important;align-items:center!important;gap:16px!important;padding:14px 16px!important;background:var(--amber-light)!important;border:1px solid #FDE68A!important;border-radius:var(--radius)!important;margin-bottom:14px!important;}
+.reg-run-box .reg-status{flex:1!important;}
+.reg-run-box .reg-btn-wrap{flex-shrink:0!important;}
+.reg-run-btn{font-family:var(--font-main)!important;font-weight:600!important;font-size:13px!important;background:var(--amber)!important;border:none!important;color:#fff!important;padding:8px 20px!important;border-radius:var(--radius)!important;cursor:pointer!important;white-space:nowrap!important;transition:background .15s ease!important;}
+.reg-run-btn:hover{background:#B45309!important;}
+.reg-status-ok{color:var(--teal)!important;font-weight:600!important;font-size:13px!important;}
+.reg-status-wait{color:var(--slate-400)!important;font-size:13px!important;}
+/* Deferred box */
+.deferred-box{background:var(--slate-50)!important;border:1.5px dashed var(--slate-200)!important;border-radius:var(--radius)!important;padding:28px 20px!important;text-align:center!important;color:var(--slate-400)!important;font-size:13px!important;margin-bottom:12px!important;}
+/* Buttons */
+.btn{font-family:var(--font-main)!important;font-weight:500!important;font-size:13px!important;border-radius:var(--radius)!important;transition:all .15s ease!important;}
+.download-btn{margin:4px 4px 4px 0!important;min-width:160px!important;}
+.btn-info{background:#0369A1!important;border-color:#0369A1!important;color:#fff!important;}
+.btn-info:hover{background:#025885!important;border-color:#025885!important;}
+.btn-success{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important;}
+.btn-success:hover{background:#00695C!important;border-color:#00695C!important;}
+.btn-warning{background:var(--amber)!important;border-color:var(--amber)!important;color:#fff!important;}
+.btn-warning:hover{background:#B45309!important;border-color:#B45309!important;}
+.btn-primary{background:var(--navy)!important;border-color:var(--navy)!important;color:#fff!important;}
+.btn-primary:hover{background:var(--navy-light)!important;border-color:var(--navy-light)!important;}
+.btn-danger{background:var(--rose)!important;border-color:var(--rose)!important;color:#fff!important;}
+.btn-wb-primary{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important;}
+.btn-wb-success{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important;}
+/* Export cards */
+.export-card{background:var(--white)!important;border:1px solid var(--slate-200)!important;border-radius:8px!important;padding:24px 20px!important;box-shadow:var(--shadow-sm)!important;height:100%!important;}
+.export-card-title{font-size:14px!important;font-weight:700!important;color:var(--navy)!important;margin-bottom:6px!important;display:flex!important;align-items:center!important;gap:8px!important;}
+.export-card-desc{font-size:12.5px!important;color:var(--slate-600)!important;margin-bottom:16px!important;line-height:1.5!important;}
+.export-card-btns{display:flex!important;flex-direction:column!important;gap:8px!important;}
+.export-card-btns .btn{width:100%!important;text-align:left!important;}
+.export-card-econ{border-top:3px solid var(--teal)!important;}
+.export-card-admin{border-top:3px solid var(--amber)!important;}
+.export-card-integ{border-top:3px solid var(--rose)!important;}
+.export-status-bar{background:var(--slate-50)!important;border:1px solid var(--slate-200)!important;border-radius:var(--radius)!important;padding:12px 16px!important;font-size:13px!important;color:var(--slate-600)!important;min-height:44px!important;}
+/* Misc */
+.proc-section{border:1px solid var(--slate-200)!important;border-radius:var(--radius)!important;padding:12px 14px!important;margin-bottom:10px!important;background:var(--slate-50)!important;}
+.alert{border-radius:var(--radius)!important;font-size:13px!important;font-family:var(--font-main)!important;}
+.alert-success{border-left:3px solid var(--teal)!important;}
+.alert-warning{border-left:3px solid var(--amber)!important;}
+.alert-danger{border-left:3px solid var(--rose)!important;}
+.alert-info{border-left:3px solid #0369A1!important;}
+.small-box{border-radius:var(--radius)!important;box-shadow:var(--shadow-sm)!important;}
+.small-box h3{font-family:var(--font-mono)!important;font-weight:500!important;}
+.selectize-input,.form-control{font-family:var(--font-main)!important;font-size:13px!important;border-radius:var(--radius)!important;border-color:var(--slate-200)!important;}
+.control-label{font-weight:600!important;font-size:12.5px!important;color:var(--slate-600)!important;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--slate-100);}
+::-webkit-scrollbar-thumb{background:var(--slate-200);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--slate-400);}
+/* ── Value / Info boxes: compact & white text ─────────────── */
+.small-box .inner h3 {
+  font-family: var(--font-mono) !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  line-height: 1.2 !important;
+  word-break: break-word !important;
+}
+.small-box .inner p {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.92) !important;
+  margin-top: 3px !important;
+  letter-spacing: 0.2px !important;
+}
+.small-box .icon { display: none !important; }
+.small-box { min-height: 80px !important; padding-right: 10px !important; }
+.small-box .inner { padding: 14px 18px !important; }
+
+/* ── FIXES: white text on all solid headers ───────────────── */
+.box.box-solid > .box-header,
+.box.box-solid > .box-header .box-title,
+.box.box-solid > .box-header .box-tools .btn {
+  color: #fff !important;
+}
+/* Filter boxes (collapsible, status=info) — subtle slate style */
+.box.box-solid.box-info > .box-header {
+  background: #334155 !important;
+  border-color: #334155 !important;
+  color: #fff !important;
+}
+.box.box-info { border-left: 3px solid #334155 !important; }
+/* Non-solid box titles inherit navy */
+.box:not(.box-solid) > .box-header .box-title { color: var(--navy) !important; }
+
+/* ── Plotly: force white background everywhere ────────────────
+   The toImage camera button renders the SVG directly.
+   We must white-out BOTH the HTML container AND the inner
+   SVG rect.bg — AdminLTE blue skin sets both.               */
+.js-plotly-plot,
+.plot-container.plotly,
+.plotly.html-widget,
+.svg-container {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+}
+/* SVG paper background rect — three selectors for specificity */
+.js-plotly-plot .bg,
+.js-plotly-plot svg rect.bg,
+.plot-container svg rect.bg {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+/* Kill AdminLTE skin colour leaking into plotly wrappers */
+.content-wrapper .plotly.html-widget,
+.box-body .plotly.html-widget {
+  background-color: #ffffff !important;
+}
+
