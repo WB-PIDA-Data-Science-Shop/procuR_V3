@@ -10,5 +10,5 @@ aux_links:
   "Open the live app":
     - "https://datanalytics-int.worldbank.org/procur_v3/"
   "View on GitHub":
-    - "https://github.com/<USER>/<REPO>"
+    - "https://github.com/WB-PIDA-Data-Science-Shop/procuR_V3/"
 footer_content: "Documentation for the Procurement Analytics Dashboard."
