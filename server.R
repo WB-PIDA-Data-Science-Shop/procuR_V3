@@ -15,7 +15,7 @@
 
 server <- function(input, output, session) {
   
-
+  
   # [APP-SV01] REACTIVE STATE — econ / admin / integ + per-tab filter stores ────
   # ============================================================
   # REACTIVE VALUES
@@ -153,7 +153,7 @@ server <- function(input, output, session) {
     integ$filtered_data
   })
   
-
+  
   # [APP-SV02] ADMIN HELPER FUNCTIONS (server scope) ─────────────────────────
   # ============================================================
   # ADMIN HELPER FUNCTIONS
@@ -294,7 +294,7 @@ server <- function(input, output, session) {
     }
   }
   
-
+  
   # [APP-SV03] DATA UPLOAD & RUN — input$run_analysis: read CSV, normalize, detect country, run all 3 pipelines ────
   # ============================================================
   # SINGLE DATA UPLOAD — runs all three pipelines (econ, admin, integrity)
@@ -646,27 +646,12 @@ server <- function(input, output, session) {
         
         output$analysis_status <- renderText({
           tryCatch({
-            date_col <- intersect(c("tender_awarddecisiondate",
-                                    "tender_publications_firstcallfortenderdate","tender_biddeadline"), names(df))[1]
-            date_info <- if (!is.na(date_col)) {
-              paste0(date_col, ": class=", class(df[[date_col]])[1],
-                     ", val=", paste(head(as.character(df[[date_col]]), 2), collapse=" | "))
-            } else "no date cols found"
-            yr_vals <- if ("tender_year" %in% names(df)) paste(head(unique(df$tender_year[!is.na(df$tender_year)]), 5), collapse=",") else "col missing"
             paste0(
-              "\u2713 Both analyses complete!\n",
+              "\u2713 Analysis complete!\n",
               "Country: ", country_code, "\n",
               "Rows: ", formatC(nrow(df), format = "d", big.mark = ","), "\n",
               "Columns: ", ncol(df), "\n",
-              "Sep used: '", sep_detected, "'\n",
-              "data.table: ", paste(packageVersion("data.table")), "\n",
-              "dplyr: ",      paste(packageVersion("dplyr")),      "\n",
-              "tender_year vals: ", yr_vals, "\n",
-              "Date col: ", date_info, "\n",
-              "File size reported: ", format(reported_size, big.mark=","), " bytes\n",
-              "File size on disk:  ", format(actual_size,   big.mark=","), " bytes\n",
-              "Raw first line (first 300 chars):\n", substr(raw_lines[1], 1, 300), "\n",
-              "All col names:\n", paste(sort(names(df)), collapse=", ")
+              "All column names:\n", paste(sort(names(df)), collapse=", ")
             )
           }, error = function(e) paste0("Status render error: ", e$message))
         })
@@ -706,7 +691,7 @@ server <- function(input, output, session) {
     })
   })
   
-
+  
   # [APP-SV04] ADMIN — APPLY THRESHOLDS (global + per-tab subm/dec buttons, national proc-type UI) ────
   # ============================================================
   # ADMIN — APPLY THRESHOLDS
@@ -949,7 +934,7 @@ server <- function(input, output, session) {
   output$threshold_status_dec  <- renderText({ if (is.null(admin$thresholds)) "" else "Thresholds active \u2713" })
   output$threshold_status  <- renderText({ if (is.null(admin$thresholds)) "" else "Thresholds active \u2713" })
   
-
+  
   # [APP-SV05] ADMIN — RE-RUN REGRESSIONS ON DEMAND ──────────────────────────
   # ============================================================
   # ADMIN — RE-RUN REGRESSIONS ON DEMAND
@@ -986,7 +971,7 @@ server <- function(input, output, session) {
     })
   })
   
-
+  
   # [APP-SV06] FILTER UI GENERATION — ECON (per-tab widgets + slider sync) ────
   # ============================================================
   # FILTER UI GENERATION — ECON SECTION
@@ -1115,7 +1100,7 @@ server <- function(input, output, session) {
     })
   }
   
-
+  
   # [APP-SV07] FILTER APPLICATION — ECON (apply/reset per tab) ───────────────
   # ============================================================
   # FILTER APPLICATION — ECON
@@ -1226,7 +1211,7 @@ server <- function(input, output, session) {
     })
   }
   
-
+  
   # [APP-SV08] FILTER APPLICATION — ADMIN ────────────────────────────────────
   # ============================================================
   # FILTER APPLICATION — ADMIN
@@ -1283,7 +1268,7 @@ server <- function(input, output, session) {
     showNotification("Admin filters reset", type = "message", duration = 2)
   }
   
-
+  
   # [APP-SV09] FILTER UI GENERATION — ADMIN ──────────────────────────────────
   # ============================================================
   # FILTER UI GENERATION — ADMIN SECTION
@@ -1420,7 +1405,7 @@ server <- function(input, output, session) {
   # Per-tab slider sync is wired inside each section's filter loop above.
   # (econ_tabs, admin_tabs, integ_tabs each call make_slider_sync per tab)
   
-
+  
   # [APP-SV10] SHARED PLOTLY HELPERS (toolbar config, PNG export, download guard) ────
   # SHARED PLOTLY HELPERS
   # ============================================================
@@ -1480,7 +1465,7 @@ server <- function(input, output, session) {
         }
       }")
   )
-
+  
   pa_config <- function(fig) {
     fig %>%
       plotly::layout(
@@ -1552,7 +1537,7 @@ server <- function(input, output, session) {
     )
   }
   
-
+  
   # [APP-SV11] DATA OVERVIEW OUTPUTS (shared; reads econ$filtered_data) ──────
   # ============================================================
   # DATA OVERVIEW OUTPUTS (shared, uses econ filtered_data)
@@ -1752,9 +1737,9 @@ server <- function(input, output, session) {
     econ$fig_ov_top_suppliers <- fig
     fig
   })
-
   
-
+  
+  
   # [APP-SV12] MARKET SIZING OUTPUTS ─────────────────────────────────────────
   # ============================================================
   # MARKET SIZING OUTPUTS
@@ -1951,7 +1936,7 @@ server <- function(input, output, session) {
       pa_config()
   })
   
-
+  
   # [APP-SV13] SUPPLIER DYNAMICS OUTPUTS (sliders, bubble / stability / trend) ────
   # ============================================================
   # SUPPLIER DYNAMICS — DYNAMIC SLIDERS
@@ -2594,7 +2579,7 @@ suppliers", labels=scales::comma) +
     fig_out
   })
   
-
+  
   # [APP-SV14] TOP SUPPLIERS PLOT ────────────────────────────────────────────
   # ============================================================
   # TOP SUPPLIERS PLOT
@@ -2817,7 +2802,7 @@ suppliers", labels=scales::comma) +
     fig
   })
   
-
+  
   # [APP-SV15] NETWORK OUTPUTS (on-demand generation, size guards) ───────────
   # ============================================================
   # NETWORK OUTPUTS
@@ -3011,7 +2996,7 @@ suppliers", labels=scales::comma) +
     do.call(tagList, plot_boxes)
   })
   
-
+  
   # [APP-SV16] RELATIVE PRICE OUTPUTS (shared rel_price_data reactive) ───────
   # ============================================================
   # RELATIVE PRICE OUTPUTS
@@ -3190,7 +3175,7 @@ suppliers", labels=scales::comma) +
     }, error = function(e) .empty_plotly(paste("Error:", e$message), "red"))
   })
   
-
+  
   # [APP-SV17] COMPETITION OUTPUTS (single-bid charts) ───────────────────────
   # ============================================================
   # COMPETITION OUTPUTS
@@ -3403,7 +3388,7 @@ suppliers", labels=scales::comma) +
       error = function(e) .empty_plotly(paste("Not available:", e$message)))
   })
   
-
+  
   # [APP-SV18] ECON FIGURE DOWNLOAD HANDLERS (fresh render via webshot2) ─────
   # ============================================================
   # ECON FIGURE DOWNLOAD HANDLERS
@@ -3866,7 +3851,7 @@ suppliers", labels=scales::comma) +
     }
   )
   
-
+  
   # [APP-SV19] ECON REPORT DOWNLOADS (Word + ZIP) ────────────────────────────
   # ============================================================
   # ECON REPORT DOWNLOADS
@@ -4029,14 +4014,14 @@ suppliers", labels=scales::comma) +
           " economic figures saved to ZIP — see MANIFEST.txt inside the ZIP."))
         if (saved < nrow(statuses))
           showNotification(paste0(saved, " of ", nrow(statuses),
-            " figures saved. MANIFEST.txt inside the ZIP explains how to generate the rest."),
-            type = "warning", duration = 8)
+                                  " figures saved. MANIFEST.txt inside the ZIP explains how to generate the rest."),
+                           type = "warning", duration = 8)
         unlink(temp_dir, recursive=TRUE)
       })
     }
   )
   
-
+  
   # [APP-SV20] ADMIN PROCEDURE TYPES OUTPUTS (+ bunching analysis) ───────────
   # ============================================================
   # ADMIN PROCEDURE TYPES OUTPUTS
@@ -4339,7 +4324,7 @@ suppliers", labels=scales::comma) +
     }
   )
   
-
+  
   # [APP-SV21] ADMIN SUBMISSION PERIODS OUTPUTS (+ share summary chart) ──────
   # ============================================================
   # ADMIN SUBMISSION PERIODS OUTPUTS
@@ -4812,7 +4797,7 @@ suppliers", labels=scales::comma) +
     admin$fig_buyer_short <- p_out %>% pa_config(); admin$fig_buyer_short
   })
   
-
+  
   # [APP-SV22] ADMIN DECISION PERIODS OUTPUTS (+ share summary chart) ────────
   # ============================================================
   # ADMIN DECISION PERIODS OUTPUTS
@@ -5402,7 +5387,7 @@ suppliers", labels=scales::comma) +
     admin$fig_buyer_long <- p_out %>% pa_config(); admin$fig_buyer_long
   })
   
-
+  
   # [APP-SV23] ADMIN REGRESSION OUTPUTS ──────────────────────────────────────
   # ============================================================
   # ADMIN REGRESSION OUTPUTS
@@ -5428,7 +5413,7 @@ suppliers", labels=scales::comma) +
       downloadButton("dl_long_reg", "Download Figure", class="download-btn btn-sm")
   })
   
-
+  
   # [APP-SV24] ROBUSTNESS CHECKS — shared spec-plot/table/verdict builders ────
   # ============================================================
   # ROBUSTNESS CHECKS — shared helpers
@@ -5891,7 +5876,7 @@ suppliers", labels=scales::comma) +
     build_robustness_ui(bundle, "long_robustness_plot", "long_robustness_table", n_hint)
   })
   
-
+  
   # [APP-SV25] ADMIN FIGURE DOWNLOAD HANDLERS ────────────────────────────────
   # ============================================================
   # ADMIN FIGURE DOWNLOAD HANDLERS (webshot2 for plotly figures)
@@ -5926,7 +5911,7 @@ suppliers", labels=scales::comma) +
     content  = function(file) { req(admin$filtered_analysis$plot_long_reg); ggsave(file, admin$filtered_analysis$plot_long_reg, width=10, height=8, dpi=300) }
   )
   
-
+  
   # [APP-SV26] ADMIN REPORT DOWNLOADS (Word + ZIP) ───────────────────────────
   # ============================================================
   # ADMIN REPORT DOWNLOADS
@@ -6044,14 +6029,14 @@ suppliers", labels=scales::comma) +
           " admin figures saved to ZIP — see MANIFEST.txt inside the ZIP."))
         if (saved < nrow(statuses))
           showNotification(paste0(saved, " of ", nrow(statuses),
-            " figures saved. MANIFEST.txt inside the ZIP explains how to generate the rest."),
-            type = "warning", duration = 8)
+                                  " figures saved. MANIFEST.txt inside the ZIP explains how to generate the rest."),
+                           type = "warning", duration = 8)
         unlink(temp_dir, recursive = TRUE)
       })
     }
   )
   
-
+  
   # [APP-SV27] EXPORT STATUS BOXES ───────────────────────────────────────────
   # ============================================================
   # EXPORT STATUS
@@ -6060,7 +6045,7 @@ suppliers", labels=scales::comma) +
   output$export_status <- renderText({ "No exports yet. Use the buttons above to generate reports." })
   
   
-
+  
   # [APP-SV28] INTEGRITY — FILTER UI GENERATION + APPLICATION ────────────────
   # ============================================================
   # INTEGRITY — FILTER UI GENERATION
@@ -6239,7 +6224,7 @@ suppliers", labels=scales::comma) +
     })
   }
   
-
+  
   # [APP-SV29] INTEGRITY — DEFERRED: ADVANCED MISSINGNESS (MCAR / MAR) ───────
   # ============================================================
   # INTEGRITY — DEFERRED: MISSING ADVANCED
@@ -6284,7 +6269,7 @@ suppliers", labels=scales::comma) +
         tags$p(mcar$interpretation, style=paste0("margin-top:10px; color:",status_col,"; font-style:italic;")))
   })
   
-
+  
   # [APP-SV30] INTEGRITY — MISSING VALUES OUTPUTS (+ downloads) ──────────────
   # ============================================================
   # INTEGRITY — MISSING VALUES OUTPUTS
@@ -6469,7 +6454,7 @@ suppliers", labels=scales::comma) +
   output$integ_dl_missing_cooccurrence <- .dl_integ_plotly(function() integ$fig_miss_cooc,  "integ_missing_cooccurrence", 1000, 800)
   output$integ_dl_missing_mar        <- .dl_integ_plotly(function() integ$fig_miss_mar,     "integ_missing_mar",        1000, 800)
   
-
+  
   # [APP-SV31] INTEGRITY — INTEROPERABILITY OUTPUT ───────────────────────────
   # ============================================================
   # INTEGRITY — INTEROPERABILITY OUTPUT
@@ -6484,7 +6469,7 @@ suppliers", labels=scales::comma) +
     DT::datatable(org_data, options=list(pageLength=10, dom="t"), rownames=FALSE)
   })
   
-
+  
   # [APP-SV32] INTEGRITY — DEFERRED: NETWORK ANALYSIS (+ concentration plot) ────
   # ============================================================
   # INTEGRITY — DEFERRED: NETWORK ANALYSIS
@@ -6725,7 +6710,7 @@ suppliers", labels=scales::comma) +
     function() integ$fig_concentration, "integ_concentration", 1400, 900
   )
   
-
+  
   # [APP-SV33] INTEGRITY — DEFERRED: REGRESSION ANALYSIS (+ robustness panels) ────
   # ============================================================
   # INTEGRITY — DEFERRED: REGRESSION ANALYSIS
@@ -6918,7 +6903,7 @@ suppliers", labels=scales::comma) +
                         "integ_relprice_robustness_table", n_hint)
   })
   
-
+  
   # [APP-SV34] INTEGRITY — FIGURE DOWNLOAD HANDLERS (stored plotly figs) ─────
   # ── Integrity download handlers — all use stored plotly figs ──────────
   # The regression figures are ggplots stored in filtered_analysis (the old
@@ -6991,7 +6976,7 @@ suppliers", labels=scales::comma) +
     }
   )
   
-
+  
   # [APP-SV35] INTEGRITY — EXPORT (Word report + ZIP) ────────────────────────
   # ============================================================
   # INTEGRITY — EXPORT (Word report + ZIP)
@@ -7082,8 +7067,8 @@ suppliers", labels=scales::comma) +
           " integrity figures saved to ZIP — see MANIFEST.txt inside the ZIP."))
         if (saved < nrow(statuses))
           showNotification(paste0(saved, " of ", nrow(statuses),
-            " figures saved. MANIFEST.txt inside the ZIP explains how to generate the rest."),
-            type = "warning", duration = 8)
+                                  " figures saved. MANIFEST.txt inside the ZIP explains how to generate the rest."),
+                           type = "warning", duration = 8)
         unlink(temp_dir, recursive = TRUE)
       })
     }

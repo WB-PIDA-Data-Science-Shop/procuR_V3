@@ -18,7 +18,7 @@ ui <- dashboardPage(
     titleWidth = 260
   ),
   
-
+  
   # [APP-UI02] SIDEBAR MENU — tab registry (tabName ↔ tabItem below) ─────────
   dashboardSidebar(
     width = 260,
@@ -81,7 +81,7 @@ ui <- dashboardPage(
     
     tabItems(
       
-
+      
       # [APP-UI03] TAB UI: Setup (upload, country code, run button) ──────────
       # ==================================================================
       # SETUP
@@ -91,15 +91,6 @@ ui <- dashboardPage(
               fluidRow(
                 box(title = "Upload Your Data", width = 8,
                     solidHeader = TRUE, status = "primary",
-                    div(class = "info-box-custom",
-                        icon("info-circle"),
-                        tags$strong(" Upload a CSV file from "),
-                        tags$a(href = "https://www.procurementintegrity.org/data",
-                               target = "_blank", "ProAct",
-                               style = "color:#009FDA; font-weight:bold;"),
-                        " then click Run Analysis. All three analysis sections —",
-                        " Economic Outcomes, Administrative Efficiency, and Procurement Integrity — will be populated."
-                    ),
                     fluidRow(
                       column(6,
                              uiOutput("demo_load_ui"),
@@ -164,7 +155,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI04] TAB UI: Overview (econ headline boxes) ────────────────────
       # ==================================================================
       # OVERVIEW
@@ -208,7 +199,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI05] TAB UI: Data Overview ─────────────────────────────────────
       # ==================================================================
       # DATA OVERVIEW (shared)
@@ -278,7 +269,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI06] TAB UI: Market Sizing ─────────────────────────────────────
       # ==================================================================
       # ECONOMIC OUTCOMES — MARKET SIZING
@@ -328,7 +319,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI07] TAB UI: Supplier Dynamics ─────────────────────────────────
       # ==================================================================
       # ECONOMIC OUTCOMES — SUPPLIER DYNAMICS
@@ -465,7 +456,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI08] TAB UI: Networks (on-demand) ──────────────────────────────
       # ==================================================================
       # ECONOMIC OUTCOMES — NETWORKS
@@ -508,7 +499,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI09] TAB UI: Relative Prices ───────────────────────────────────
       # ==================================================================
       # ECONOMIC OUTCOMES — RELATIVE PRICES
@@ -595,7 +586,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI10] TAB UI: Competition (single-bid) ──────────────────────────
       # ==================================================================
       # ECONOMIC OUTCOMES — COMPETITION
@@ -770,7 +761,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI11] TAB UI: Procedure Types (admin) ───────────────────────────
       # ==================================================================
       # ADMIN — CONFIGURATION
@@ -969,7 +960,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI12] TAB UI: Submission Periods (admin) ────────────────────────
       # ==================================================================
       # ADMIN — SUBMISSION PERIODS
@@ -1113,7 +1104,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI13] TAB UI: Decision Periods (admin) ──────────────────────────
       # ==================================================================
       # ADMIN — DECISION PERIODS
@@ -1255,7 +1246,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI14] TAB UI: Regression Analysis (admin) ───────────────────────
       # ==================================================================
       # ADMIN — REGRESSION
@@ -1298,7 +1289,7 @@ ui <- dashboardPage(
                            uiOutput("sensitivity_long_ui")))
       ),
       
-
+      
       # [APP-UI15] TAB UI: Missing Values (integrity) ────────────────────────
       # ==================================================================
       # EXPORT
@@ -1413,7 +1404,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI16] TAB UI: Interoperability (integrity) ──────────────────────
       # ==================================================================
       # INTEGRITY — INTEROPERABILITY
@@ -1433,7 +1424,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI17] TAB UI: Risky Profiles (integrity — flow matrix + network graph) ────
       # ==================================================================
       # INTEGRITY — RISKY PROFILES
@@ -1549,7 +1540,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI18] TAB UI: Regression / Prices (integrity) ───────────────────
       # ==================================================================
       # INTEGRITY — PRICES & COMPETITION
@@ -1619,7 +1610,7 @@ ui <- dashboardPage(
               )
       ),
       
-
+      
       # [APP-UI19] TAB UI: Export & Download ─────────────────────────────────
       # ==================================================================
       # EXPORT (existing)

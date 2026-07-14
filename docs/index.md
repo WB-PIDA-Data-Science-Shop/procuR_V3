@@ -28,7 +28,7 @@ auto-generated Word report per section.
 * **Live app:** <https://datanalytics-int.worldbank.org/procur_v3/> — click
   **Run Demo** on the Setup page for an instant, fully configured tour.
 * **Run locally:** clone the repository, open R in the folder, and run
-  `shiny::runApp()`. Click **"Load bundled demo dataset (Demoland)"** on the
+  `shiny::runApp()`. Click **"Run Demo"** on the
   Setup tab — a fully synthetic 15,674-award dataset loads with every
   threshold pre-configured.
 
@@ -41,6 +41,7 @@ auto-generated Word report per section.
 | [Policy note](policy-note.html) | Non-technical explanation of the indicators |
 | [Developer guide](developer-guide.html) | Architecture, reactive graph, extension points |
 | [Function reference](function-reference.html) | Every function, by file and anchor |
+| [Data dictionary](data-dictionary.html) | Every input column: definition, type, and which analyses use it (Excel download available) |
 
 ## Data requirements
 
