@@ -7,6 +7,8 @@ color_scheme: light
 heading_anchors: true
 # After creating your repository, replace <USER>/<REPO> below:
 aux_links:
+  "Open the live app":
+    - "https://datanalytics-int.worldbank.org/procur_v3/"
   "View on GitHub":
-    - "https://github.com/vvpolt/procuR_V3"
+    - "https://github.com/<USER>/<REPO>"
 footer_content: "Documentation for the Procurement Analytics Dashboard."

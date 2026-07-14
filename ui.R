@@ -102,20 +102,23 @@ ui <- dashboardPage(
                     ),
                     fluidRow(
                       column(6,
+                             uiOutput("demo_load_ui"),
                              fileInput("datafile", label = tags$div(icon("file-csv"), tags$strong(" Choose CSV File")),
                                        accept = c("text/csv",".csv"), buttonLabel = "Browse..."),
                              textInput("country_code", "Country Code (2 letters — blank = auto-detect)", value = "",
-                                       placeholder = "Auto-detecting from data…"),
-                             uiOutput("demo_load_ui")
+                                       placeholder = "Auto-detecting from data…")
                       ),
                       column(6,
                              h4("Instructions:"),
                              tags$ol(
-                               tags$li("Upload your procurement CSV file from ", tags$a(href="https://www.procurementintegrity.org/data", target="_blank", "ProAct", style="color:#009FDA;font-weight:bold;")),
+                               tags$li(tags$b("Fastest start:"), " click ", tags$b("Run Demo"),
+                                       " — a bundled synthetic dataset loads with every threshold pre-configured"),
+                               tags$li("Or upload your own dataset — or any country dataset from ",
+                                       tags$a(href="https://www.procurementintegrity.org/data", target="_blank", "ProAct",
+                                              style="color:#009FDA;font-weight:bold;"),
+                                       " (choose and download it there), then click 'Run Analysis'"),
                                tags$li("Enter the two-letter country code (or leave blank for auto-detection)"),
-                               tags$li("Click 'Run Analysis' — all three pipelines run automatically"),
                                tags$li("Use the Procedure Types tab to set value thresholds and filter procedure types"),
-                               tags$li("Navigate the tabs to explore results"),
                                tags$li("Run Network or Regression analyses on demand from their respective tabs"),
                                tags$li("Use the Export tab to download reports and figures")
                              )

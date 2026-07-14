@@ -1,0 +1,9 @@
+// Site-title: the default theme sizes assume a short name; ours wraps.
+.site-title {
+  font-size: 1.02rem !important;
+  line-height: 1.25;
+  white-space: normal;
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+}
+.site-header { min-height: 0; height: auto; }

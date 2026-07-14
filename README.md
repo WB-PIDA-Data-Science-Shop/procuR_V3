@@ -15,7 +15,7 @@ Each section has its own filter state, its own tabs, and its own Word/ZIP export
 
 ## Live demo & documentation
 
-* **Live demo:** *(paste your shinyapps.io URL here after deploying — see `PUBLISHING.md`)*
+* **Live app:** <https://datanalytics-int.worldbank.org/procur_v3/> — click **Run Demo** on the Setup page.
 * **Documentation site:** `https://<USER>.github.io/<REPO>/` once GitHub Pages
   is enabled (Settings → Pages → branch `main`, folder `/docs`).
 

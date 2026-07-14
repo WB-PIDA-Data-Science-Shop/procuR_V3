@@ -23,8 +23,10 @@ auto-generated Word report per section.
 
 ## Try it
 
-* **Live demo:** *(add your shinyapps.io link here after deploying — see
-  `PUBLISHING.md` in the repository)*
+[🚀 Open the live app](https://datanalytics-int.worldbank.org/procur_v3/){: .btn .btn-primary .fs-5 .mb-4 }
+
+* **Live app:** <https://datanalytics-int.worldbank.org/procur_v3/> — click
+  **Run Demo** on the Setup page for an instant, fully configured tour.
 * **Run locally:** clone the repository, open R in the folder, and run
   `shiny::runApp()`. Click **"Load bundled demo dataset (Demoland)"** on the
   Setup tab — a fully synthetic 15,674-award dataset loads with every

@@ -310,12 +310,14 @@ server <- function(input, output, session) {
   })
   output$demo_load_ui <- renderUI({
     if (!file.exists("demo-data/demo_procurement_data.csv")) return(NULL)
-    div(style = "margin-top:6px;",
-        actionButton("load_demo",
-                     tagList(icon("flask"), " Load bundled demo dataset (Demoland)"),
-                     class = "btn-info btn-sm", width = "100%"),
-        tags$small(style = "color:#666;",
-                   "15,674 synthetic awards, 2015–2024 — thresholds pre-fill automatically. See demo-data/DEMO_GUIDE.md."))
+    tagList(
+      actionButton("load_demo",
+                   tags$span(icon("play-circle", class = "fa-lg"), " Run Demo"),
+                   class = "btn-wb-success btn-lg",
+                   style = "width:100%; padding:15px; font-size:18px;"),
+      div(style = "text-align:center; margin:12px 0; color:#8a8a8a; font-weight:bold; letter-spacing:1px;",
+          "— OR —")
+    )
   })
   observeEvent(input$load_demo, {
     demo_path <- "demo-data/demo_procurement_data.csv"
