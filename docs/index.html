@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procurement Analytics Dashboard — procuR Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0066cc;
+            --dark-blue: #003d7a;
+            --light-blue: #4da6ff;
+            --accent-blue: #00a3e0;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #6a6a6a;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 2px 8px rgba(0, 102, 204, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 102, 204, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 102, 204, 0.16);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7; color: var(--text-dark);
+            background: linear-gradient(135deg, #f8fafc 0%, #e8f2fc 100%);
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            padding: 0; box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+        }
+        header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+        .header-content { position: relative; z-index: 1; display: flex; align-items: stretch; gap: 0; }
+        .logo-container {
+            flex-shrink: 0; animation: fadeInScale 0.6s ease-out; background: white;
+            padding: 3rem; width: 300px; display: flex; align-items: center;
+            justify-content: center; transition: all 0.3s ease;
+        }
+        .logo-container:hover { background: #f8f9fa; }
+        .logo-container img { height: 250px; width: auto; display: block; transition: transform 0.3s ease; }
+        .logo-container:hover img { transform: scale(1.05); }
+        .header-text { flex: 1; animation: fadeInRight 0.6s ease-out 0.2s backwards; padding: 3rem; }
+        h1 {
+            font-size: 3rem; font-weight: 700; color: var(--bg-white);
+            margin-bottom: 0.5rem; letter-spacing: -0.02em;
+        }
+        h1 em { font-style: italic; color: var(--light-blue); }
+        .subtitle { font-size: 1.2rem; color: rgba(255, 255, 255, 0.9); font-weight: 300; line-height: 1.6; }
+        nav {
+            background: var(--bg-white); padding: 1rem 0; box-shadow: var(--shadow-sm);
+            position: sticky; top: 0; z-index: 100; animation: slideDown 0.4s ease-out 0.4s backwards;
+        }
+        nav ul { list-style: none; display: flex; gap: 2rem; flex-wrap: wrap; }
+        nav a {
+            text-decoration: none; color: var(--text-medium); font-weight: 500; font-size: 0.95rem;
+            transition: all 0.3s ease; padding: 0.5rem 0; border-bottom: 2px solid transparent; display: inline-block;
+        }
+        nav a:hover { color: var(--primary-blue); border-bottom-color: var(--primary-blue); transform: translateY(-1px); }
+        main { padding: 4rem 0; animation: fadeIn 0.6s ease-out 0.6s backwards; }
+        .content-section {
+            background: var(--bg-white); border-radius: 16px; padding: 3rem; margin-bottom: 3rem;
+            box-shadow: var(--shadow-md); border: 1px solid var(--border-color); transition: all 0.3s ease;
+        }
+        .content-section:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+        h2 {
+            font-size: 2rem; font-weight: 700; color: var(--dark-blue); margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        h2::before {
+            content: ''; width: 4px; height: 2rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)); border-radius: 2px;
+        }
+        h3 { font-size: 1.4rem; font-weight: 600; color: var(--primary-blue); margin-top: 2rem; margin-bottom: 1rem; }
+        p { color: var(--text-medium); margin-bottom: 1.25rem; font-size: 1.05rem; }
+        ul { list-style: none; padding-left: 0; }
+        ul li { padding: 0.75rem 0; padding-left: 2rem; position: relative; color: var(--text-medium); font-size: 1.05rem; }
+        ul li::before { content: '\2192'; position: absolute; left: 0; color: var(--primary-blue); font-weight: 700; }
+        code {
+            font-family: 'IBM Plex Mono', monospace; background: var(--bg-light); padding: 0.2rem 0.5rem;
+            border-radius: 4px; font-size: 0.9em; color: var(--primary-blue); border: 1px solid var(--border-color);
+        }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .card {
+            background: var(--bg-light); border: 2px solid var(--border-color); border-radius: 12px;
+            padding: 1.75rem; transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            transform: scaleX(0); transition: transform 0.3s ease;
+        }
+        .card:hover { border-color: var(--primary-blue); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+        .card:hover::before { transform: scaleX(1); }
+        .card h3 { margin-top: 0; font-size: 1.2rem; }
+        .card p { font-size: 0.95rem; margin-bottom: 1rem; }
+        .card a {
+            color: var(--primary-blue); text-decoration: none; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s ease;
+        }
+        .card a:hover { gap: 0.75rem; }
+        .card a::after { content: '\2192'; }
+        a { color: var(--primary-blue); text-decoration: none; transition: all 0.2s ease; }
+        a:hover { color: var(--accent-blue); }
+        .external-link {
+            font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            color: white; padding: 0.75rem 1.5rem; border-radius: 8px;
+            transition: all 0.3s ease; box-shadow: var(--shadow-sm);
+        }
+        .external-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); color: white; }
+        .status-badge {
+            display: inline-block; background: linear-gradient(135deg, #10b981, #059669);
+            color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem;
+            font-weight: 600; margin: 1rem 0; box-shadow: var(--shadow-sm);
+        }
+        footer { background: var(--dark-blue); color: rgba(255, 255, 255, 0.8); padding: 2rem 0; text-align: center; margin-top: 4rem; }
+        footer p { color: rgba(255, 255, 255, 0.8); margin: 0; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; gap: 0; }
+            .logo-container { width: 100%; margin-left: 0; padding: 2rem; justify-content: center; }
+            .logo-container img { height: 100px; }
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1rem; }
+            .content-section { padding: 2rem 1.5rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            nav ul { flex-direction: column; gap: 0.5rem; }
+        }
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            z-index: 1000; transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container" id="logoBox">
+                    <img src="procuR-logo.png" alt="procuR Logo" id="logoPlaceholder"
+                         onerror="document.getElementById('logoBox').style.display='none';">
+                </div>
+                <div class="header-text">
+                    <h1>The <em>procuR</em> Analytics Dashboard</h1>
+                    <p class="subtitle">An interactive R Shiny toolkit that turns public procurement contract data into actionable analytics across economic outcomes, administrative efficiency, and procurement integrity modules</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tryit">Try it</a></li>
+                <li><a href="#documentation">Documentation</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#reproduce">Run locally</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="about" class="content-section">
+                <h2>&#128216; About this project</h2>
+
+                <div class="status-badge">&#9989; Live app with a one-click demo dataset</div>
+
+                <p>The dashboard reads contract award data - such as the
+                country datasets published by <a href="https://www.procurementintegrity.org/data/" target="_blank">ProAct</a> —
+                and produces an interactive analysis across three modules:</p>
+                <ul>
+                    <li><strong>Economic Outcomes</strong> — market sizing, supplier dynamics and entry, relative prices against estimates, competition and single bidding</li>
+                    <li><strong>Administrative Efficiency</strong> — procedure mix, value bunching below thresholds, submission and decision periods, and regression evidence linking administrative shortcuts to reduced competition</li>
+                    <li><strong>Procurement Integrity</strong> — missing-data forensics, buyer&ndash;supplier concentration over time, unusual market-entry networks, and robustness-checked integrity regressions</li>
+                </ul>
+                <p>Every figure is exportable individually, as a figures ZIP, or inside an
+                auto-generated Word report per section. A fully synthetic demo dataset
+                (fictional country <em>Demoland</em>, 15,674 awards, 2015&ndash;2024) ships with the
+                app so anyone can explore every feature in one click.</p>
+            </section>
+
+            <section id="tryit" class="content-section">
+                <h2>&#128640; Try it</h2>
+                <p>Open the live app and click <strong>Run Demo</strong> on the Setup page — the bundled dataset loads
+                with every threshold pre-configured. Or upload ProAct country dataset. You can also upload your own data - just make sure its structure and variable names follow data dictionary requirements</p>
+
+                <div style="margin: 1.5rem 0;">
+                    <a href="https://datanalytics-int.worldbank.org/procur_v3/" target="_blank" class="external-link">Launch the app</a>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Demo dataset guide</h3>
+                        <p>What the synthetic Demoland data contains and exactly what each tab should find — planted patterns included.</p>
+                        <a href="demo-guide.html">Read the guide</a>
+                    </div>
+                    <div class="card">
+                        <h3>GitHub repository</h3>
+                        <p>Full source code, the demo dataset and its generator, and this documentation site.</p>
+                        <a href="https://github.com/WB-PIDA-Data-Science-Shop/procuR_V3" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="documentation" class="content-section">
+                <h2>&#128218; Documentation</h2>
+                <p>Each analytical choice in the app is documented down to the formula and the code anchor that implements it.</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Methodology</h3>
+                        <p>Exact definitions, formulas, and code anchors for every chart, indicator, and regression.</p>
+                        <a href="methodology.html">Read Methodology</a>
+                    </div>
+                    <div class="card">
+                        <h3>Policy note</h3>
+                        <p>A non-technical explanation of the indicators and how to interpret the red flags.</p>
+                        <a href="policy-note.html">Read Policy note</a>
+                    </div>
+                    <div class="card">
+                        <h3>Developer guide</h3>
+                        <p>Architecture, the reactive graph, shared-code map, and extension points for contributors.</p>
+                        <a href="developer-guide.html">Read Developer guide</a>
+                    </div>
+                    <div class="card">
+                        <h3>Function reference</h3>
+                        <p>Every function in the codebase, organised by file and anchor.</p>
+                        <a href="function-reference.html">Browse Reference</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="data" class="content-section">
+                <h2>&#128202; Data</h2>
+                <p>The app expects OpenTender-style CSVs: one awarded contract per row
+                (tender &times; lot &times; winning bid), 67 columns. The data dictionary documents
+                every column, its type, and which analyses use it.</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Data dictionary</h3>
+                        <p>All 67 input columns: definition, type, and the analytics each one feeds.</p>
+                        <a href="data-dictionary.html">View dictionary</a>
+                    </div>
+                    <div class="card">
+                        <h3>Data dictionary (Excel)</h3>
+                        <p>The same dictionary as a formatted, filterable spreadsheet.</p>
+                        <a href="assets/data_dictionary.xlsx">Download .xlsx</a>
+                    </div>
+                    <div class="card">
+                        <h3>ProAct country datasets</h3>
+                        <p>Real country datasets in the same schema, downloadable country by country.</p>
+                        <a href="https://www.procurementintegrity.org/data/" target="_blank">Browse ProAct data</a>
+                    </div>
+                    <div class="card">
+                        <h3>Demo dataset &amp; generator</h3>
+                        <p>The synthetic Demoland CSV plus the fully reproducible Python generator (seed-fixed).</p>
+                        <a href="https://github.com/WB-PIDA-Data-Science-Shop/procuR_V3/tree/main/demo-data" target="_blank">Open demo-data folder</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="reproduce" class="content-section">
+                <h2>&#128200; Run it locally</h2>
+                <p>To run the dashboard on your own machine you will need:</p>
+                <ul>
+                    <li><strong>R</strong> version <strong>4.3</strong> or newer, with <strong>RStudio</strong> (Posit) recommended</li>
+                    <li><strong>The repository</strong> — clone or download it from GitHub</li>
+                    <li>Open R in the repository folder and run <code>shiny::runApp()</code> — required packages are listed in the README</li>
+                    <li>Click <strong>Run Demo</strong> on the Setup tab, or upload a ProAct dataset</li>
+                </ul>
+                <div style="margin-top: 1rem;">
+                    <a href="https://github.com/WB-PIDA-Data-Science-Shop/procuR_V3" target="_blank" class="external-link">View Repository on GitHub</a>
+                </div>
+
+                <h3>Repository structure</h3>
+                <ul>
+                    <li><code>global.R</code>, <code>ui.R</code>, <code>server.R</code> — the Shiny app (multi-file layout)</li>
+                    <li><code>utils_shared.R</code>, <code>econ_out_utils.R</code>, <code>admin_utils.R</code>, <code>integrity_utils.R</code> — analysis modules</li>
+                    <li><code>demo-data/</code> — bundled synthetic dataset, guide, and generator</li>
+                    <li><code>docs/</code> — this documentation site</li>
+                    <li><code>deploy_shinyapps.R</code>, <code>PUBLISHING.md</code> — deployment kit</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 procuR Project | World Bank PIDA Data Science Shop</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
